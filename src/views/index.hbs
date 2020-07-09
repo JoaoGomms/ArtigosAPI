@@ -4,13 +4,41 @@
             <h1>Artigos</h1>
         </div>
         <div class="card-body">
-            Cadastre seus artigos aqui
+            {{#if articles}}
+
+            <ul>
+                {{#each articles}}
+
+                        <li>
+                            {{title}}
+                            {{subtitle}}
+                            {{conteudo}}
+                            {{url}}
+                        </li>
+
+
+                    {{/each}}
+            </ul>
+            {{/if}}
         </div>
         <div class="card-footer">
-            <form action="">
+            <form action="/new-article" method="POST">
                 <div class="form-group">
-                    <input type="text" name="name" placeholder="Nome do Artigo" class="form">
+                    <input type="text" name="title" placeholder="Titulo do Artigo" class="form-control" autofocus>
                 </div>
+                <div class="form-group">
+                    <input type="text" name="subtitle" placeholder="Subtitulo" class="form-control" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="content" placeholder="Conteudo" class="form-control" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Nome do Artigo" class="form-control" autofocus>
+                </div>
+                <button class="btn btn-primary">
+                    Adicionar Artigo
+                </button>
+
             </form>
         </div>
     </div>

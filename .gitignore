@@ -1,3 +1,6 @@
 # node.js
 #
 node_modules/
+
+# firebase sdk
+firebasesdk.json

@@ -37,11 +37,16 @@
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Nome do Artigo" class="form-control" autofocus>
                 </div>
-                <button class="btn btn-primary">
-                    Adicionar Artigo
-                </button>
+                <form method="post" enctype="multipart/form-data" action="/upload">
+                    <input type="file" name="file">
+                    <input type="submit" value="Submit">
+                </form>
+
+
 
             </form>
+
+
         </div>
     </div>
 

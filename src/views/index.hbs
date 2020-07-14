@@ -4,22 +4,24 @@
             <h1>Artigos</h1>
         </div>
         <div class="card-body">
-            {{#if articles}}
 
-            <ul>
+           <ul id="articles-list">
+
                 {{#each articles}}
+                <li>
+                    {{this.data.title}}
+                    {{this.data.subtitle}}
+                    {{this.data.conteudo}}
+                    {{this.data.url}}
 
-                        <li>
-                            {{title}}
-                            {{subtitle}}
-                            {{conteudo}}
-                            {{url}}
-                        </li>
+                </li>
+
+                {{/each}}
 
 
-                    {{/each}}
+
             </ul>
-            {{/if}}
+
         </div>
         <div class="card-footer">
             <form action="/new-article" method="POST">

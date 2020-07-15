@@ -5,14 +5,16 @@
         </div>
         <div class="card-body">
 
-           <ul id="articles-list">
+           <ul id="articles-list" class="list-group">
 
                 {{#each articles}}
-                <li>
+                <li  class="list-group-item d-flex justify-content-between">
                     {{this.data.title}}
                     {{this.data.subtitle}}
                     {{this.data.conteudo}}
-<!--                    {{this.data.url}}-->
+                    <a href="/delete-article/{{@key}}" class="btn btn-danger">
+                        Excluir
+                    </a>
 
                 </li>
 

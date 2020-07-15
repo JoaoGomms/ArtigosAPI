@@ -75,7 +75,6 @@ router.post('/new-article', upload.single("file"),
                     //     .contentType("text/plain")
                     //     .end("File uploaded!");
 
-                    res.redirect('/');
 
                     bucket.upload(path.join(__dirname, "./temporary/image.png"), {
                         destination: "Artigos" + req.file.originalname,
@@ -99,7 +98,9 @@ router.post('/new-article', upload.single("file"),
                                 conteudo: req.body.content,
                                 url: data[0]
                             }
-                            db.collection('Artigos').add(newArticle)
+                            db.collection('Artigos').add(newArticle).then(() => {
+                                res.redirect('/')
+                            });
 
 
                         })
@@ -116,25 +117,28 @@ router.post('/new-article', upload.single("file"),
                 });
             }
 
-
-    let newArticle = {
-        title: req.body.title,
-        subtitle: req.body.subtitle,
-        conteudo: req.body.content,
-    };
-
-
-
-
-
-
-
-
-
-
-    //
-    // res.send('DEU BOM BB');
-
 });
+
+
+router.get('/delete-article/:id', async (req, res) =>{
+    const articlesSnapshot = await db.collection('Artigos').get();
+
+    const articles = [];
+
+    articlesSnapshot.forEach((doc) => {
+        articles.push({
+            id: doc.id,
+            data: doc.data()
+
+        });
+
+    });
+
+    console.log(articles[req.params.id].id)
+    let deleteDoc = db.collection('Artigos').doc(articles[req.params.id].id).delete().then(() => {
+        res.redirect('/')
+    });
+
+})
 
 module.exports = router;

@@ -39,23 +39,6 @@ router.get('/',   async(req, res) => {
 });
 
 
-function uploadPic (picName, picture) {
-
-    bucket.upload(picture, {
-        destination: "pic/" + picName,
-        metadata: {
-            contentType: picture.mimetype,
-            cacheControl: 'public, max-age=31536000'
-        }
-    }, (err, file) => {
-        if (err) {
-            console.log("ESSE É O ERRO", err);
-        } else {
-            console.log('done');
-        }
-        return;
-    });
-};
 
 
 
@@ -77,12 +60,9 @@ const upload = multer({
 
 
 
+router.post('/new-article', upload.single("file"),
+    (req, res) => {
 
-
-router.post('/new-article', (req, res) => {
-
-    upload.single("file" /* name attribute of <file> element in your form */),
-        (req, res) => {
             const tempPath = req.file.path;
             const targetPath = path.join(__dirname, "./temporary/image.png");
 
@@ -94,6 +74,34 @@ router.post('/new-article', (req, res) => {
                         .status(200)
                         .contentType("text/plain")
                         .end("File uploaded!");
+
+                    bucket.upload(path.join(__dirname, "./temporary/image.png"), {
+                        destination: "Artigos" + req.file.originalname,
+                        metadata: {
+                            contentType: path.join(__dirname, "./temporary/image.png").mimetype,
+                            cacheControl: 'public, max-age=31536000',
+                        }
+                    }, (err, file) => {
+                        if (err) {
+                            console.log("ESSE É O ERRO", err);
+                        } else {
+                            console.log('top');
+                        }
+                        return file.getSignedUrl({
+                            action: 'read',
+                            expires: '03-09-2491'
+                        }).then(data => {
+                            newArticle = {
+                                title: req.body.title,
+                                subtitle: req.body.subtitle,
+                                conteudo: req.body.content,
+                                url: data[0]
+                            }
+                            db.collection('Artigos').add(newArticle)
+
+
+                        })
+                    });
                 });
             } else {
                 fs.unlink(tempPath, err => {
@@ -105,25 +113,25 @@ router.post('/new-article', (req, res) => {
                         .end("Only .png files are allowed!");
                 });
             }
-        }
 
 
-        uploadPic('imagem1',path.join(__dirname, "./temporary/image.png"))
-
-    console.log(req.body);
-    const newArticle = {
+    let newArticle = {
         title: req.body.title,
         subtitle: req.body.subtitle,
         conteudo: req.body.content,
-        url: req.body.name,
-
     };
-    db.collection('Artigos').add(newArticle)
 
 
 
 
-    res.send('recebido');
+
+
+
+
+
+
+    //
+    // res.send('DEU BOM BB');
 
 });
 

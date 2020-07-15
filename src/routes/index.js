@@ -70,10 +70,12 @@ router.post('/new-article', upload.single("file"),
                 fs.rename(tempPath, targetPath, err => {
                     if (err) return handleError(err, res);
 
-                    res
-                        .status(200)
-                        .contentType("text/plain")
-                        .end("File uploaded!");
+                    // res
+                    //     .status(200)
+                    //     .contentType("text/plain")
+                    //     .end("File uploaded!");
+
+                    res.redirect('/');
 
                     bucket.upload(path.join(__dirname, "./temporary/image.png"), {
                         destination: "Artigos" + req.file.originalname,

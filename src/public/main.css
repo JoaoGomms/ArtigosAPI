@@ -1,3 +1,57 @@
 body {
+  padding-top: 7%;
+}
 
+#content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+#title{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+#subtitle{
+    margin-bottom: 5%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+
+#myBtn {
+    display: inline; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 7%; /* Place the button at the bottom of the page */
+    right: 50%; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: cyan; /* Set a background color */
+    color: black; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 100px; /* Rounded corners */
+    font-size: 12px; /* Increase font size */
+}
+#myBtn span{
+    max-width: 0;
+    -webkit-transition: max-width 1s;
+    transition: max-width 1s;
+    display: inline-flex;
+    vertical-align: top;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 16px;
+}
+#myBtn:hover span{
+    max-width: 9rem;
 }
